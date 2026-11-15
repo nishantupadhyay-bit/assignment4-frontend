@@ -2,12 +2,13 @@
   import AppLayout from './components/layout/AppLayout.svelte';
   import PageContainer from './components/common/PageContainer.svelte';
   import UserManagement from './components/users/UserManagement.svelte';
+  import ProductCatalogue from './components/products/ProductCatalogue.svelte';
 
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8083';
 
   const sections = [
-    { title: 'Users', description: 'Register users and view the user directory.', marker: 'U', status: 'Coming in Phase 3' },
-    { title: 'Products', description: 'Browse the product catalogue and view product details.', marker: 'P', status: 'Coming in Phase 4' },
+    { title: 'Users', description: 'Register users and view the user directory.', marker: 'U', status: 'Available' },
+    { title: 'Products', description: 'Browse the product catalogue and view product details.', marker: 'P', status: 'Available' },
     { title: 'Orders', description: 'Create orders and review order information.', marker: 'O', status: 'Coming in Phase 5' }
   ];
 </script>
@@ -36,7 +37,7 @@
         <section class="mt-8">
           <div class="mb-4">
             <h2 class="text-lg font-bold text-slate-900">Application areas</h2>
-            <p class="mt-1 text-sm text-slate-500">The main workflows planned for this application.</p>
+            <p class="mt-1 text-sm text-slate-500">The main workflows available in this application.</p>
           </div>
           <div class="grid gap-4 lg:grid-cols-3">
             {#each sections as section}
@@ -51,12 +52,14 @@
         </section>
       {:else if activePage === 'Users'}
         <UserManagement />
+      {:else if activePage === 'Products'}
+        <ProductCatalogue />
       {:else}
         <section class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-12 text-center">
           <p class="text-sm font-semibold text-indigo-600">{activePage}</p>
           <h2 class="mt-2 text-xl font-bold text-slate-900">{activePage} workspace</h2>
           <p class="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-600">
-            The shared navigation is ready. The {activePage.toLowerCase()} workflow will be implemented in its planned phase.
+            The {activePage.toLowerCase()} workflow will be implemented in Phase 5.
           </p>
         </section>
       {/if}
