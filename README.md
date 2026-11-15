@@ -69,7 +69,13 @@ Open the local URL printed by Vite (normally http://localhost:5173).
 - Refresh the product catalogue
 - View individual product details using `GET /api/products/{productId}`
 - Update stock quantity using the BFF `PATCH /api/products/{productId}/stock` endpoint
-- Display price, currency, stock quantity and product description
-- Display loading, empty, success and API error states
 
-Product updates are limited to stock quantity because that is the update operation currently exposed by the BFF.
+### PR5 — Order management
+
+- Create orders using the BFF `POST /api/orders` endpoint
+- Load the order directory using `GET /api/orders`
+- View order details using `GET /api/orders/{orderId}`
+- Select existing users and products when creating an order
+- Display order status, quantity and timestamps
+
+The current BFF does not expose a list-orders-by-user endpoint. The frontend therefore lists all orders and displays the associated user ID.
