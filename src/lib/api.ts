@@ -101,3 +101,34 @@ export function updateProductStock(productId: number, stock: UpdateStockRequest)
     body: JSON.stringify(stock)
   });
 }
+
+export interface Order {
+  id: number;
+  userId: number;
+  productId: number;
+  quantity: number;
+  status: string;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export interface CreateOrderRequest {
+  userId: number;
+  productId: number;
+  quantity: number;
+}
+
+export function getOrders(): Promise<Order[]> {
+  return request<Order[]>('/api/orders');
+}
+
+export function getOrder(orderId: number): Promise<Order> {
+  return request<Order>(`/api/orders/${orderId}`);
+}
+
+export function createOrder(order: CreateOrderRequest): Promise<Order> {
+  return request<Order>('/api/orders', {
+    method: 'POST',
+    body: JSON.stringify(order)
+  });
+}
