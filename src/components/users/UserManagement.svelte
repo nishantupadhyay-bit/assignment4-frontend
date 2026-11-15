@@ -114,12 +114,12 @@
       <div class="overflow-x-auto">
         <table class="w-full min-w-[480px] text-left text-sm">
           <thead class="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-500">
-            <tr><th class="px-3 py-3 font-semibold">User ID</th><th class="px-3 py-3 font-semibold">Full name</th><th class="px-3 py-3 font-semibold">Email</th><th class="px-3 py-3"></th></tr>
+            <tr><th class="px-3 py-3 font-semibold">Customer</th><th class="px-3 py-3 font-semibold">Full name</th><th class="px-3 py-3 font-semibold">Email</th><th class="px-3 py-3"></th></tr>
           </thead>
           <tbody class="divide-y divide-slate-100">
             {#each users as user (user.id)}
               <tr class="hover:bg-slate-50">
-                <td class="px-3 py-3 text-slate-600">{user.id}</td>
+                <td class="px-3 py-3"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-50 text-xs font-bold text-indigo-700">{user.fullName.split(' ').map((part) => part[0]).slice(0, 2).join('').toUpperCase()}</span></td>
                 <td class="px-3 py-3 font-medium text-slate-900">{user.fullName}</td>
                 <td class="px-3 py-3 text-slate-600">{user.email}</td>
                 <td class="px-3 py-3 text-right">
@@ -144,7 +144,7 @@
           class="rounded-lg px-2 py-1 text-slate-500 hover:bg-white">✕</button>
       </div>
       <dl class="mt-4 grid gap-4 sm:grid-cols-3">
-        <div><dt class="text-xs text-slate-500">User ID</dt><dd class="mt-1 text-sm font-medium text-slate-900">{selectedUser.id}</dd></div>
+        
         <div><dt class="text-xs text-slate-500">Full name</dt><dd class="mt-1 text-sm font-medium text-slate-900">{selectedUser.fullName}</dd></div>
         <div><dt class="text-xs text-slate-500">Email</dt><dd class="mt-1 text-sm font-medium text-slate-900">{selectedUser.email}</dd></div>
       </dl>
