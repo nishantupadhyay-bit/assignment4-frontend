@@ -60,8 +60,8 @@
 <div class="space-y-8">
   <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
     <div class="mb-6">
-      <p class="text-sm font-semibold text-indigo-600">User management</p>
-      <h2 class="mt-1 text-xl font-bold text-slate-900">Register a user</h2>
+      <p class="inline-flex items-center gap-2 text-sm font-bold text-violet-700"><span class="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-violet-500 to-indigo-600 text-white shadow-md shadow-violet-200">♙</span> Customer community</p>
+      <h2 class="mt-1 text-xl font-bold text-slate-900">Welcome a new customer</h2>
       <p class="mt-2 text-sm text-slate-600">Create a user through the BFF REST API.</p>
     </div>
 
@@ -80,7 +80,7 @@
       </label>
       <div class="md:col-span-2">
         <button type="submit" disabled={submitting}
-          class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60">
+          class="rounded-xl bg-gradient-to-r from-violet-600 to-indigo-600 px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-violet-200 transition hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60">
           {submitting ? 'Registering…' : 'Register user'}
         </button>
       </div>
@@ -97,7 +97,7 @@
   <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
     <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
       <div>
-        <h2 class="text-xl font-bold text-slate-900">User directory</h2>
+        <h2 class="flex items-center gap-2 text-xl font-bold text-slate-900"><span class="text-violet-600">✺</span> Customer directory</h2>
         <p class="mt-1 text-sm text-slate-600">Select a user to view their details.</p>
       </div>
       <button type="button" onclick={loadUsers} disabled={loading}
@@ -119,7 +119,7 @@
           <tbody class="divide-y divide-slate-100">
             {#each users as user (user.id)}
               <tr class="hover:bg-slate-50">
-                <td class="px-3 py-3"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-indigo-50 text-xs font-bold text-indigo-700">{user.fullName.split(' ').map((part) => part[0]).slice(0, 2).join('').toUpperCase()}</span></td>
+                <td class="px-3 py-3"><span class="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-fuchsia-500 to-violet-600 text-xs font-bold text-white shadow-sm">{user.fullName.split(' ').map((part) => part[0]).slice(0, 2).join('').toUpperCase()}</span></td>
                 <td class="px-3 py-3 font-medium text-slate-900">{user.fullName}</td>
                 <td class="px-3 py-3 text-slate-600">{user.email}</td>
                 <td class="px-3 py-3 text-right">
@@ -134,7 +134,7 @@
   </section>
 
   {#if selectedUser}
-    <section class="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-6">
+    <section class="rounded-2xl border border-violet-200 bg-gradient-to-br from-violet-50 via-white to-fuchsia-50 p-6 shadow-sm">
       <div class="flex items-start justify-between gap-4">
         <div>
           <p class="text-xs font-semibold uppercase tracking-wide text-indigo-600">User details</p>
