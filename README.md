@@ -53,7 +53,6 @@ Open the local URL printed by Vite (normally http://localhost:5173).
 - Dashboard, Users, Products and Orders navigation entries
 - Reusable header and page container components
 - Dashboard landing page with workflow placeholders
-- No backend API calls are introduced in this phase
 
 ### PR3 — User management
 
@@ -61,6 +60,14 @@ Open the local URL printed by Vite (normally http://localhost:5173).
 - Load the user directory using `GET /api/users`
 - View individual user details using `GET /api/users/{userId}`
 - Display loading, success, empty and API error states
-- Keep all requests routed through the BFF REST API
 
-Product management remains read-only in the frontend; product creation and stock updates are not part of the frontend scope.
+### PR4 — Product catalogue
+
+- Browse products using the BFF `GET /api/products` endpoint
+- Search the loaded catalogue by product name or description
+- Refresh the product catalogue
+- View individual product details using `GET /api/products/{productId}`
+- Display price, currency, stock quantity and product description
+- Display loading, empty and API error states
+
+Product management is read-only in the frontend. Product creation and stock updates are intentionally excluded.
