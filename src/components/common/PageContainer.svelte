@@ -8,6 +8,6 @@
   let { children }: Props = $props();
 </script>
 
-<div class="mx-auto w-full max-w-7xl p-5 sm:p-8 lg:p-10">
+<div class="mx-auto w-full max-w-[1440px] p-4 sm:p-6 lg:p-9">
   {@render children()}
 </div>

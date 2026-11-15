@@ -6,17 +6,49 @@
   background: #f8fafc;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-optical-sizing: auto;
+}
+
+html {
+  min-width: 320px;
+  scroll-behavior: smooth;
 }
 
 body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  background: #f8fafc;
 }
 
-button { cursor: pointer; }
+button, input, select, textarea {
+  font: inherit;
+}
 
-button:focus-visible {
-  outline: 2px solid #4f46e5;
+button {
+  cursor: pointer;
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 3px solid rgb(99 102 241 / 35%);
   outline-offset: 2px;
+}
+
+::selection {
+  color: #312e81;
+  background: #e0e7ff;
+}
+
+table tbody tr {
+  transition: background-color 120ms ease;
+}
+
+input, select, textarea {
+  transition: border-color 150ms ease, box-shadow 150ms ease;
 }
