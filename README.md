@@ -8,7 +8,7 @@ The frontend communicates **only with the BFF REST API**. It does not call the U
 
 - Node.js 20.19+ or 22.12+
 - npm
-- Assignment 4 BFF running locally on port 8083
+- Assignment 4 BFF service running and reachable
 
 ## Setup
 
@@ -17,9 +17,7 @@ npm install
 cp .env.example .env
 ```
 
-By default, `.env.example` configures the BFF at `http://localhost:8083`.
-
-If the BFF runs at a different address, update `VITE_API_BASE_URL` in `.env`.
+Configure `VITE_API_BASE_URL` in your local `.env` file to point to your BFF deployment. Keep environment-specific endpoints out of committed application UI and documentation.
 
 ## Run locally
 
@@ -27,7 +25,7 @@ If the BFF runs at a different address, update `VITE_API_BASE_URL` in `.env`.
 npm run dev
 ```
 
-Open the local URL printed by Vite (normally http://localhost:5173).
+Open the development URL printed by Vite.
 
 ## Available scripts
 
@@ -73,7 +71,7 @@ Open the local URL printed by Vite (normally http://localhost:5173).
 - Select existing users and products when creating an order
 - Display order status, quantity and timestamps
 
-The current BFF does not expose a list-orders-by-user endpoint. The frontend therefore lists all orders and displays the associated user ID.
+The current BFF exposes the order directory, so the frontend displays customer- and product-friendly labels without exposing internal record identifiers.
 
 ### PR6 — UI refinement
 - Refreshed application shell, navigation, header and footer
@@ -81,3 +79,10 @@ The current BFF does not expose a list-orders-by-user endpoint. The frontend the
 - Consistent typography, focus states, selection styling and form transitions
 - Refined responsive spacing and page content width
 - No API contracts or business workflows changed
+
+### PR6 — Commerce UI and presentation hardening
+- Replaced the technical dashboard with a storefront-style promotional hero banner and shopping-oriented sections
+- Removed visible customer, product and order record identifiers from the interface
+- Replaced internal IDs in order views with customer and product names
+- Removed environment-specific BFF addresses from the dashboard and setup documentation
+- Kept API identifiers internally for resource lookup and request routing
