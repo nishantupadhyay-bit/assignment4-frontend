@@ -1,6 +1,7 @@
 <script lang="ts">
   import AppLayout from './components/layout/AppLayout.svelte';
   import PageContainer from './components/common/PageContainer.svelte';
+  import UserManagement from './components/users/UserManagement.svelte';
 
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8083';
 
@@ -48,6 +49,8 @@
             {/each}
           </div>
         </section>
+      {:else if activePage === 'Users'}
+        <UserManagement />
       {:else}
         <section class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-12 text-center">
           <p class="text-sm font-semibold text-indigo-600">{activePage}</p>
