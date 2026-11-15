@@ -12,7 +12,7 @@
   </div>
   <div class="flex min-h-screen min-w-0 flex-col">
     <Header pageTitle={activePage === 'Dashboard' ? 'Microservices Dashboard' : activePage} />
-    <main class="flex-1"><slot /></main>
+    <main class="flex-1"><slot activePage={activePage} /></main>
     <footer class="border-t border-slate-200 bg-white px-5 py-4 text-center text-xs text-slate-500 sm:px-8">
       Assignment 4 · Svelte frontend · Connected through BFF REST API
     </footer>
