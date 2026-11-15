@@ -95,8 +95,8 @@
 <div class="space-y-8">
   <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
     <div>
-      <p class="text-sm font-semibold text-indigo-600">Order management</p>
-      <h2 class="mt-1 text-xl font-bold text-slate-900">Create an order</h2>
+      <p class="inline-flex items-center gap-2 text-sm font-bold text-amber-700"><span class="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-amber-400 to-orange-500 text-lg text-white shadow-md shadow-amber-200">🛍</span> Your purchases</p>
+      <h2 class="mt-1 text-xl font-bold text-slate-900">Create a new order</h2>
       <p class="mt-2 text-sm text-slate-600">Choose a user, product and quantity to place an order.</p>
     </div>
 
@@ -130,7 +130,7 @@
       </label>
       <div class="md:col-span-3">
         <button type="submit" disabled={submitting || users.length === 0 || products.length === 0}
-          class="rounded-lg bg-indigo-600 px-5 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60">
+          class="rounded-xl bg-gradient-to-r from-amber-500 to-orange-500 px-5 py-2.5 text-sm font-bold text-white shadow-md shadow-amber-200 transition hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60">
           {submitting ? 'Creating order…' : 'Create order'}
         </button>
       </div>
@@ -147,7 +147,7 @@
   <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
     <div class="mb-5 flex flex-wrap items-center justify-between gap-3">
       <div>
-        <h2 class="text-xl font-bold text-slate-900">Order directory</h2>
+        <h2 class="flex items-center gap-2 text-xl font-bold text-slate-900"><span class="text-orange-500">▣</span> Recent purchases</h2>
         <p class="mt-1 text-sm text-slate-600">View orders created in the system.</p>
       </div>
       <button type="button" onclick={loadOrders} disabled={loading}
@@ -181,7 +181,7 @@
                 <td class="px-3 py-3 text-slate-600">{products.find((product) => product.id === order.productId)?.name ?? 'Product'}</td>
                 <td class="px-3 py-3 text-slate-600">{order.quantity}</td>
                 <td class="px-3 py-3">
-                  <span class="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">{order.status}</span>
+                  <span class="rounded-full bg-gradient-to-r from-violet-100 to-indigo-100 px-2.5 py-1 text-xs font-bold text-indigo-800">✦ {order.status}</span>
                 </td>
                 <td class="px-3 py-3 text-right">
                   <button type="button" onclick={() => showOrder(order.id)}
@@ -202,7 +202,7 @@
     <div role="alert" class="rounded-xl border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{detailsError}</div>
   {/if}
   {#if selectedOrder}
-    <section class="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-6 sm:p-8">
+    <section class="rounded-2xl border border-amber-200 bg-gradient-to-br from-amber-50 via-white to-orange-50 p-6 shadow-sm sm:p-8">
       <div class="flex items-start justify-between gap-4">
         <div>
           <p class="text-xs font-semibold uppercase tracking-wide text-indigo-600">Order summary</p>
