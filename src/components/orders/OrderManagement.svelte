@@ -165,7 +165,7 @@
         <table class="w-full min-w-[600px] text-left text-sm">
           <thead class="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-500">
             <tr>
-              <th class="px-3 py-3 font-semibold">Order ID</th>
+              <th class="px-3 py-3 font-semibold">Order</th>
               <th class="px-3 py-3 font-semibold">Customer</th>
               <th class="px-3 py-3 font-semibold">Product</th>
               <th class="px-3 py-3 font-semibold">Quantity</th>
@@ -176,7 +176,7 @@
           <tbody class="divide-y divide-slate-100">
             {#each orders as order (order.id)}
               <tr class="hover:bg-slate-50">
-                <td class="px-3 py-3 font-medium text-slate-900">#{order.id}</td>
+                <td class="px-3 py-3 font-medium text-slate-900">Purchase</td>
                 <td class="px-3 py-3 text-slate-600">{users.find((user) => user.id === order.userId)?.fullName ?? 'Customer'}</td>
                 <td class="px-3 py-3 text-slate-600">{products.find((product) => product.id === order.productId)?.name ?? 'Product'}</td>
                 <td class="px-3 py-3 text-slate-600">{order.quantity}</td>
@@ -212,8 +212,8 @@
           class="rounded-lg px-2 py-1 text-slate-500 hover:bg-white">✕</button>
       </div>
       <dl class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        <div><dt class="text-xs text-slate-500">User ID</dt><dd class="mt-1 text-sm font-semibold text-slate-900">{users.find((user) => user.id === selectedOrder?.userId)?.fullName ?? 'Customer details unavailable'}</dd></div>
-        <div><dt class="text-xs text-slate-500">Product ID</dt><dd class="mt-1 text-sm font-semibold text-slate-900">{products.find((product) => product.id === selectedOrder?.productId)?.name ?? 'Product details unavailable'}</dd></div>
+        <div><dt class="text-xs text-slate-500">Customer</dt><dd class="mt-1 text-sm font-semibold text-slate-900">{users.find((user) => user.id === selectedOrder?.userId)?.fullName ?? 'Customer details unavailable'}</dd></div>
+        <div><dt class="text-xs text-slate-500">Product</dt><dd class="mt-1 text-sm font-semibold text-slate-900">{products.find((product) => product.id === selectedOrder?.productId)?.name ?? 'Product details unavailable'}</dd></div>
         <div><dt class="text-xs text-slate-500">Quantity</dt><dd class="mt-1 text-sm font-semibold text-slate-900">{selectedOrder.quantity}</dd></div>
         <div><dt class="text-xs text-slate-500">Status</dt><dd class="mt-1 text-sm font-semibold text-slate-900">{selectedOrder.status}</dd></div>
         <div><dt class="text-xs text-slate-500">Created</dt><dd class="mt-1 text-sm font-semibold text-slate-900">{formatDate(selectedOrder.createdAt)}</dd></div>
