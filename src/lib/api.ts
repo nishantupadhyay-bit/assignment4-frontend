@@ -68,10 +68,36 @@ export interface Product {
   updatedAt: string;
 }
 
+export interface CreateProductRequest {
+  name: string;
+  description: string;
+  price: number;
+  currency: string;
+  stockQuantity: number;
+}
+
+export interface UpdateStockRequest {
+  stockQuantity: number;
+}
+
 export function getProducts(): Promise<Product[]> {
   return request<Product[]>('/api/products');
 }
 
 export function getProduct(productId: number): Promise<Product> {
   return request<Product>(`/api/products/${productId}`);
+}
+
+export function createProduct(product: CreateProductRequest): Promise<Product> {
+  return request<Product>('/api/products', {
+    method: 'POST',
+    body: JSON.stringify(product)
+  });
+}
+
+export function updateProductStock(productId: number, stock: UpdateStockRequest): Promise<Product> {
+  return request<Product>(`/api/products/${productId}/stock`, {
+    method: 'PATCH',
+    body: JSON.stringify(stock)
+  });
 }
