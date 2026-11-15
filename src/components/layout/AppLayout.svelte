@@ -17,18 +17,18 @@
   }
 </script>
 
-<div class="min-h-screen bg-slate-50 md:grid md:grid-cols-[250px_minmax(0,1fr)]">
-  <div class="md:sticky md:top-0 md:h-screen">
+<div class="min-h-screen bg-slate-50 md:grid md:grid-cols-[260px_minmax(0,1fr)]">
+  <div class="z-30 md:sticky md:top-0 md:h-screen">
     <Sidebar activePage={activePage} onNavigate={navigateTo} />
   </div>
 
   <div class="flex min-h-screen min-w-0 flex-col">
-    <Header pageTitle={activePage === 'Dashboard' ? 'Microservices Dashboard' : activePage} />
-    <main class="flex-1">
+    <Header pageTitle={activePage === 'Dashboard' ? 'Overview' : activePage} />
+    <main class="min-w-0 flex-1">
       {@render children(activePage)}
     </main>
-    <footer class="border-t border-slate-200 bg-white px-5 py-4 text-center text-xs text-slate-500 sm:px-8">
-      Assignment 4 · Svelte frontend · Connected through BFF REST API
+    <footer class="border-t border-slate-200/80 bg-white px-5 py-4 text-center text-xs text-slate-400 sm:px-8">
+      <span class="font-semibold text-slate-500">Assignment 4</span> <span class="mx-1.5">·</span> Svelte frontend <span class="mx-1.5">·</span> Powered by the BFF REST API
     </footer>
   </div>
 </div>
