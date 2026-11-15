@@ -61,13 +61,15 @@ Open the local URL printed by Vite (normally http://localhost:5173).
 - View individual user details using `GET /api/users/{userId}`
 - Display loading, success, empty and API error states
 
-### PR4 — Product catalogue
+### PR4 — Product management
 
+- Create products using the BFF `POST /api/products` endpoint
 - Browse products using the BFF `GET /api/products` endpoint
 - Search the loaded catalogue by product name or description
 - Refresh the product catalogue
 - View individual product details using `GET /api/products/{productId}`
+- Update stock quantity using the BFF `PATCH /api/products/{productId}/stock` endpoint
 - Display price, currency, stock quantity and product description
-- Display loading, empty and API error states
+- Display loading, empty, success and API error states
 
-Product management is read-only in the frontend. Product creation and stock updates are intentionally excluded.
+Product updates are limited to stock quantity because that is the update operation currently exposed by the BFF.
