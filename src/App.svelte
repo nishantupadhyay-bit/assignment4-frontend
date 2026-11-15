@@ -57,14 +57,6 @@
         <ProductCatalogue />
       {:else if activePage === 'Orders'}
         <OrderManagement />
-      {:else}
-        <section class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-12 text-center">
-          <p class="text-sm font-semibold text-indigo-600">{activePage}</p>
-          <h2 class="mt-2 text-xl font-bold text-slate-900">{activePage} workspace</h2>
-          <p class="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-600">
-            The {activePage.toLowerCase()} workflow is not implemented yet.
-          </p>
-        </section>
       {/if}
     </PageContainer>
   {/snippet}
