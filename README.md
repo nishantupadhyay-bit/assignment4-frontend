@@ -55,4 +55,12 @@ Open the local URL printed by Vite (normally http://localhost:5173).
 - Dashboard landing page with workflow placeholders
 - No backend API calls are introduced in this phase
 
-User workflows will be implemented in subsequent phases. Product management remains read-only in the frontend; product creation and stock updates are not part of the frontend scope.
+### PR3 — User management
+
+- Register users using the BFF `POST /api/users` endpoint
+- Load the user directory using `GET /api/users`
+- View individual user details using `GET /api/users/{userId}`
+- Display loading, success, empty and API error states
+- Keep all requests routed through the BFF REST API
+
+Product management remains read-only in the frontend; product creation and stock updates are not part of the frontend scope.
