@@ -126,8 +126,8 @@
 <div class="space-y-8">
   <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
     <div>
-      <p class="text-sm font-semibold text-indigo-600">Product management</p>
-      <h2 class="mt-1 text-xl font-bold text-slate-900">Add a new product</h2>
+      <p class="inline-flex items-center gap-2 text-sm font-bold text-fuchsia-700"><span class="flex h-8 w-8 items-center justify-center rounded-xl bg-gradient-to-br from-fuchsia-500 to-pink-600 text-lg text-white shadow-md shadow-fuchsia-200">✧</span> The collection</p>
+      <h2 class="mt-1 text-xl font-bold text-slate-900">Add something wonderful</h2>
       <p class="mt-2 text-sm text-slate-600">Create a product in the catalogue.</p>
     </div>
 
@@ -162,7 +162,7 @@
       </label>
       <div class="flex items-end">
         <button type="submit" disabled={creating}
-          class="w-full rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60">
+          class="w-full rounded-xl bg-gradient-to-r from-fuchsia-600 to-violet-600 px-4 py-2.5 text-sm font-bold text-white shadow-md shadow-fuchsia-200 transition hover:-translate-y-0.5 hover:shadow-lg disabled:cursor-not-allowed disabled:opacity-60">
           {creating ? 'Creating…' : 'Add product'}
         </button>
       </div>
@@ -179,7 +179,7 @@
     <div class="flex flex-wrap items-start justify-between gap-4">
       <div>
         <p class="text-sm font-semibold text-indigo-600">Product management</p>
-        <h2 class="mt-1 text-xl font-bold text-slate-900">Product catalogue</h2>
+        <h2 class="mt-1 flex items-center gap-2 text-xl font-bold text-slate-900"><span class="text-fuchsia-600">✦</span> Product catalogue</h2>
         <p class="mt-2 text-sm text-slate-600">Browse products and inspect their details.</p>
       </div>
       <button type="button" onclick={loadProducts} disabled={loading}
@@ -214,7 +214,7 @@
       <div class="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
         {#each filteredProducts as product (product.id)}
           <article class="flex flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <div class="flex items-start justify-between gap-3">
+            <div class="mb-4 flex h-16 items-center justify-center rounded-xl bg-gradient-to-br from-fuchsia-50 via-violet-50 to-indigo-100 text-3xl text-violet-600">✧</div><div class="flex items-start justify-between gap-3">
               <div>
                 <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Store collection</p>
                 <h3 class="mt-2 text-base font-bold text-slate-900">{product.name}</h3>
@@ -248,7 +248,7 @@
   {/if}
 
   {#if selectedProduct}
-    <section class="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-6 sm:p-8">
+    <section class="rounded-2xl border border-fuchsia-200 bg-gradient-to-br from-fuchsia-50 via-white to-violet-50 p-6 shadow-sm sm:p-8">
       <div class="flex items-start justify-between gap-4">
         <div>
           <p class="text-xs font-semibold uppercase tracking-wide text-indigo-600">Product details</p>
