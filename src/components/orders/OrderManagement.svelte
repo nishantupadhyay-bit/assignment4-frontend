@@ -60,7 +60,7 @@
         quantity: Number(quantity)
       });
       selectedOrder = createdOrder;
-      successMessage = `Order #${createdOrder.id} was created successfully.`;
+      successMessage = 'Your order has been placed successfully.';
       await loadOrders();
     } catch (error) {
       errorMessage = error instanceof Error ? error.message : 'Unable to create order.';
@@ -107,7 +107,7 @@
           class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
           <option value="" disabled>Select a user</option>
           {#each users as user (user.id)}
-            <option value={String(user.id)}>{user.fullName} (#{user.id})</option>
+            <option value={String(user.id)}>{user.fullName}</option>
           {/each}
         </select>
       </label>
@@ -118,7 +118,7 @@
           <option value="" disabled>Select a product</option>
           {#each products as product (product.id)}
             <option value={String(product.id)} disabled={product.stockQuantity <= 0}>
-              {product.name} · {product.stockQuantity} available · #{product.id}
+              {product.name} · {product.stockQuantity} available
             </option>
           {/each}
         </select>
@@ -166,8 +166,8 @@
           <thead class="border-b border-slate-200 text-xs uppercase tracking-wide text-slate-500">
             <tr>
               <th class="px-3 py-3 font-semibold">Order ID</th>
-              <th class="px-3 py-3 font-semibold">User ID</th>
-              <th class="px-3 py-3 font-semibold">Product ID</th>
+              <th class="px-3 py-3 font-semibold">Customer</th>
+              <th class="px-3 py-3 font-semibold">Product</th>
               <th class="px-3 py-3 font-semibold">Quantity</th>
               <th class="px-3 py-3 font-semibold">Status</th>
               <th class="px-3 py-3"></th>
@@ -177,8 +177,8 @@
             {#each orders as order (order.id)}
               <tr class="hover:bg-slate-50">
                 <td class="px-3 py-3 font-medium text-slate-900">#{order.id}</td>
-                <td class="px-3 py-3 text-slate-600">{order.userId}</td>
-                <td class="px-3 py-3 text-slate-600">{order.productId}</td>
+                <td class="px-3 py-3 text-slate-600">{users.find((user) => user.id === order.userId)?.fullName ?? 'Customer'}</td>
+                <td class="px-3 py-3 text-slate-600">{products.find((product) => product.id === order.productId)?.name ?? 'Product'}</td>
                 <td class="px-3 py-3 text-slate-600">{order.quantity}</td>
                 <td class="px-3 py-3">
                   <span class="rounded-full bg-indigo-50 px-2.5 py-1 text-xs font-semibold text-indigo-700">{order.status}</span>
@@ -205,15 +205,15 @@
     <section class="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-6 sm:p-8">
       <div class="flex items-start justify-between gap-4">
         <div>
-          <p class="text-xs font-semibold uppercase tracking-wide text-indigo-600">Order details · #{selectedOrder.id}</p>
-          <h2 class="mt-1 text-xl font-bold text-slate-900">Order #{selectedOrder.id}</h2>
+          <p class="text-xs font-semibold uppercase tracking-wide text-indigo-600">Order summary</p>
+          <h2 class="mt-1 text-xl font-bold text-slate-900">Order details</h2>
         </div>
         <button type="button" onclick={() => selectedOrder = null} aria-label="Close order details"
           class="rounded-lg px-2 py-1 text-slate-500 hover:bg-white">✕</button>
       </div>
       <dl class="mt-6 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        <div><dt class="text-xs text-slate-500">User ID</dt><dd class="mt-1 text-sm font-semibold text-slate-900">{selectedOrder.userId}</dd></div>
-        <div><dt class="text-xs text-slate-500">Product ID</dt><dd class="mt-1 text-sm font-semibold text-slate-900">{selectedOrder.productId}</dd></div>
+        <div><dt class="text-xs text-slate-500">User ID</dt><dd class="mt-1 text-sm font-semibold text-slate-900">{users.find((user) => user.id === selectedOrder?.userId)?.fullName ?? 'Customer details unavailable'}</dd></div>
+        <div><dt class="text-xs text-slate-500">Product ID</dt><dd class="mt-1 text-sm font-semibold text-slate-900">{products.find((product) => product.id === selectedOrder?.productId)?.name ?? 'Product details unavailable'}</dd></div>
         <div><dt class="text-xs text-slate-500">Quantity</dt><dd class="mt-1 text-sm font-semibold text-slate-900">{selectedOrder.quantity}</dd></div>
         <div><dt class="text-xs text-slate-500">Status</dt><dd class="mt-1 text-sm font-semibold text-slate-900">{selectedOrder.status}</dd></div>
         <div><dt class="text-xs text-slate-500">Created</dt><dd class="mt-1 text-sm font-semibold text-slate-900">{formatDate(selectedOrder.createdAt)}</dd></div>
