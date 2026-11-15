@@ -56,3 +56,22 @@ export function createUser(user: CreateUserRequest): Promise<User> {
     body: JSON.stringify(user)
   });
 }
+
+export interface Product {
+  id: number;
+  name: string;
+  description: string;
+  price: number;
+  currency: string;
+  stockQuantity: number;
+  createdAt: string;
+  updatedAt: string;
+}
+
+export function getProducts(): Promise<Product[]> {
+  return request<Product[]>('/api/products');
+}
+
+export function getProduct(productId: number): Promise<Product> {
+  return request<Product>(`/api/products/${productId}`);
+}
