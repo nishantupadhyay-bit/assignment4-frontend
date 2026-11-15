@@ -52,7 +52,9 @@
     }
   }
 
-  onMount(loadUsers);
+  onMount(() => {
+    void loadUsers();
+  });
 </script>
 
 <div class="space-y-8">
