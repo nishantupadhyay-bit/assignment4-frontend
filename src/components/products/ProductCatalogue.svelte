@@ -82,7 +82,7 @@
         stockQuantity: Number(newProduct.stockQuantity)
       });
       newProduct = { name: '', description: '', price: 0, currency: 'INR', stockQuantity: 0 };
-      createSuccess = `Product #${created.id} was created successfully.`;
+      createSuccess = 'Product added to your catalogue successfully.';
       await loadProducts();
     } catch (error) {
       createError = error instanceof Error ? error.message : 'Unable to create product.';
@@ -216,7 +216,7 @@
           <article class="flex flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
             <div class="flex items-start justify-between gap-3">
               <div>
-                <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Product #{product.id}</p>
+                <p class="text-xs font-semibold uppercase tracking-wide text-slate-400">Store collection</p>
                 <h3 class="mt-2 text-base font-bold text-slate-900">{product.name}</h3>
               </div>
               <span class:low-stock={product.stockQuantity > 0 && product.stockQuantity <= 5}
@@ -251,7 +251,7 @@
     <section class="rounded-2xl border border-indigo-100 bg-indigo-50/50 p-6 sm:p-8">
       <div class="flex items-start justify-between gap-4">
         <div>
-          <p class="text-xs font-semibold uppercase tracking-wide text-indigo-600">Product details · #{selectedProduct.id}</p>
+          <p class="text-xs font-semibold uppercase tracking-wide text-indigo-600">Product details</p>
           <h2 class="mt-1 text-xl font-bold text-slate-900">{selectedProduct.name}</h2>
         </div>
         <button type="button" onclick={() => selectedProduct = null} aria-label="Close product details"
