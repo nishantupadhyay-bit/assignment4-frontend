@@ -41,28 +41,24 @@ Open the local URL printed by Vite (normally http://localhost:5173).
 ## Current implementation
 
 ### PR1 — Frontend foundation
-
 - Svelte single-page application with TypeScript
 - Vite development and production build setup
 - Tailwind CSS v4
 - Configurable BFF base URL
 
 ### PR2 — Shared layout
-
 - Responsive application shell with sidebar navigation
 - Dashboard, Users, Products and Orders navigation entries
 - Reusable header and page container components
 - Dashboard landing page with workflow placeholders
 
 ### PR3 — User management
-
 - Register users using the BFF `POST /api/users` endpoint
 - Load the user directory using `GET /api/users`
 - View individual user details using `GET /api/users/{userId}`
 - Display loading, success, empty and API error states
 
 ### PR4 — Product management
-
 - Create products using the BFF `POST /api/products` endpoint
 - Browse products using the BFF `GET /api/products` endpoint
 - Search the loaded catalogue by product name or description
@@ -71,7 +67,6 @@ Open the local URL printed by Vite (normally http://localhost:5173).
 - Update stock quantity using the BFF `PATCH /api/products/{productId}/stock` endpoint
 
 ### PR5 — Order management
-
 - Create orders using the BFF `POST /api/orders` endpoint
 - Load the order directory using `GET /api/orders`
 - View order details using `GET /api/orders/{orderId}`
@@ -79,3 +74,10 @@ Open the local URL printed by Vite (normally http://localhost:5173).
 - Display order status, quantity and timestamps
 
 The current BFF does not expose a list-orders-by-user endpoint. The frontend therefore lists all orders and displays the associated user ID.
+
+### PR6 — UI refinement
+- Refreshed application shell, navigation, header and footer
+- Improved dashboard hero section and workspace cards
+- Consistent typography, focus states, selection styling and form transitions
+- Refined responsive spacing and page content width
+- No API contracts or business workflows changed
