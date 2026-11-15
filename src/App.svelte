@@ -3,13 +3,14 @@
   import PageContainer from './components/common/PageContainer.svelte';
   import UserManagement from './components/users/UserManagement.svelte';
   import ProductCatalogue from './components/products/ProductCatalogue.svelte';
+  import OrderManagement from './components/orders/OrderManagement.svelte';
 
   const apiBaseUrl = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8083';
 
   const sections = [
     { title: 'Users', description: 'Register users and view the user directory.', marker: 'U', status: 'Available' },
-    { title: 'Products', description: 'Browse the product catalogue and view product details.', marker: 'P', status: 'Available' },
-    { title: 'Orders', description: 'Create orders and review order information.', marker: 'O', status: 'Coming in Phase 5' }
+    { title: 'Products', description: 'Create products, browse the catalogue and update stock.', marker: 'P', status: 'Available' },
+    { title: 'Orders', description: 'Create orders and review order information.', marker: 'O', status: 'Available' }
   ];
 </script>
 
@@ -54,12 +55,14 @@
         <UserManagement />
       {:else if activePage === 'Products'}
         <ProductCatalogue />
+      {:else if activePage === 'Orders'}
+        <OrderManagement />
       {:else}
         <section class="rounded-2xl border border-dashed border-slate-300 bg-white px-6 py-12 text-center">
           <p class="text-sm font-semibold text-indigo-600">{activePage}</p>
           <h2 class="mt-2 text-xl font-bold text-slate-900">{activePage} workspace</h2>
           <p class="mx-auto mt-2 max-w-lg text-sm leading-6 text-slate-600">
-            The {activePage.toLowerCase()} workflow will be implemented in Phase 5.
+            The {activePage.toLowerCase()} workflow is not implemented yet.
           </p>
         </section>
       {/if}
