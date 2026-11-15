@@ -1,6 +1,13 @@
 <script lang="ts">
   import { onMount } from 'svelte';
-  import { getProduct, getProducts, type Product } from '../../lib/api';
+  import {
+    createProduct,
+    getProduct,
+    getProducts,
+    updateProductStock,
+    type CreateProductRequest,
+    type Product
+  } from '../../lib/api';
 
   let products = $state<Product[]>([]);
   let selectedProduct = $state<Product | null>(null);
@@ -9,6 +16,20 @@
   let detailsLoading = $state(false);
   let errorMessage = $state('');
   let detailsError = $state('');
+  let createError = $state('');
+  let createSuccess = $state('');
+  let creating = $state(false);
+  let stockError = $state('');
+  let stockSuccess = $state('');
+  let updatingStock = $state(false);
+  let newProduct = $state<CreateProductRequest>({
+    name: '',
+    description: '',
+    price: 0,
+    currency: 'INR',
+    stockQuantity: 0
+  });
+  let stockQuantity = $state(0);
 
   let filteredProducts = $derived(
     products.filter((product) =>
@@ -21,6 +42,9 @@
     errorMessage = '';
     try {
       products = await getProducts();
+      if (selectedProduct) {
+        selectedProduct = products.find((product) => product.id === selectedProduct?.id) ?? selectedProduct;
+      }
     } catch (error) {
       errorMessage = error instanceof Error ? error.message : 'Unable to load products.';
     } finally {
@@ -31,13 +55,59 @@
   async function showProduct(productId: number) {
     detailsLoading = true;
     detailsError = '';
+    stockError = '';
+    stockSuccess = '';
     selectedProduct = null;
     try {
       selectedProduct = await getProduct(productId);
+      stockQuantity = selectedProduct.stockQuantity;
     } catch (error) {
       detailsError = error instanceof Error ? error.message : 'Unable to load product details.';
     } finally {
       detailsLoading = false;
+    }
+  }
+
+  async function handleCreateProduct(event: SubmitEvent) {
+    event.preventDefault();
+    creating = true;
+    createError = '';
+    createSuccess = '';
+    try {
+      const created = await createProduct({
+        ...newProduct,
+        name: newProduct.name.trim(),
+        description: newProduct.description.trim(),
+        price: Number(newProduct.price),
+        stockQuantity: Number(newProduct.stockQuantity)
+      });
+      newProduct = { name: '', description: '', price: 0, currency: 'INR', stockQuantity: 0 };
+      createSuccess = `Product #${created.id} was created successfully.`;
+      await loadProducts();
+    } catch (error) {
+      createError = error instanceof Error ? error.message : 'Unable to create product.';
+    } finally {
+      creating = false;
+    }
+  }
+
+  async function handleUpdateStock(event: SubmitEvent) {
+    event.preventDefault();
+    if (!selectedProduct) return;
+
+    updatingStock = true;
+    stockError = '';
+    stockSuccess = '';
+    try {
+      selectedProduct = await updateProductStock(selectedProduct.id, {
+        stockQuantity: Number(stockQuantity)
+      });
+      stockSuccess = 'Stock quantity updated successfully.';
+      await loadProducts();
+    } catch (error) {
+      stockError = error instanceof Error ? error.message : 'Unable to update stock quantity.';
+    } finally {
+      updatingStock = false;
     }
   }
 
@@ -54,6 +124,57 @@
 </script>
 
 <div class="space-y-8">
+  <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
+    <div>
+      <p class="text-sm font-semibold text-indigo-600">Product management</p>
+      <h2 class="mt-1 text-xl font-bold text-slate-900">Add a new product</h2>
+      <p class="mt-2 text-sm text-slate-600">Create a product in the catalogue.</p>
+    </div>
+
+    <form onsubmit={handleCreateProduct} class="mt-6 grid gap-4 sm:grid-cols-2">
+      <label class="block">
+        <span class="mb-1.5 block text-sm font-medium text-slate-700">Product name</span>
+        <input bind:value={newProduct.name} required maxlength="100"
+          class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
+      </label>
+      <label class="block">
+        <span class="mb-1.5 block text-sm font-medium text-slate-700">Description</span>
+        <input bind:value={newProduct.description} required
+          class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
+      </label>
+      <label class="block">
+        <span class="mb-1.5 block text-sm font-medium text-slate-700">Price</span>
+        <input bind:value={newProduct.price} type="number" min="0.01" step="0.01" required
+          class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
+      </label>
+      <label class="block">
+        <span class="mb-1.5 block text-sm font-medium text-slate-700">Currency</span>
+        <select bind:value={newProduct.currency} required
+          class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100">
+          <option value="INR">INR</option>
+          <option value="USD">USD</option>
+        </select>
+      </label>
+      <label class="block">
+        <span class="mb-1.5 block text-sm font-medium text-slate-700">Initial stock quantity</span>
+        <input bind:value={newProduct.stockQuantity} type="number" min="0" step="1" required
+          class="w-full rounded-lg border border-slate-300 px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
+      </label>
+      <div class="flex items-end">
+        <button type="submit" disabled={creating}
+          class="w-full rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60">
+          {creating ? 'Creating…' : 'Add product'}
+        </button>
+      </div>
+    </form>
+    {#if createError}
+      <p role="alert" class="mt-4 text-sm text-red-700">{createError}</p>
+    {/if}
+    {#if createSuccess}
+      <p role="status" class="mt-4 text-sm text-emerald-700">{createSuccess}</p>
+    {/if}
+  </section>
+
   <section class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
     <div class="flex flex-wrap items-start justify-between gap-4">
       <div>
@@ -143,7 +264,7 @@
           <dd class="mt-1 text-sm font-semibold text-slate-900">{formatPrice(selectedProduct)}</dd>
         </div>
         <div>
-          <dt class="text-xs text-slate-500">Stock quantity</dt>
+          <dt class="text-xs text-slate-500">Current stock</dt>
           <dd class="mt-1 text-sm font-semibold text-slate-900">{selectedProduct.stockQuantity}</dd>
         </div>
         <div>
@@ -155,6 +276,25 @@
           <dd class="mt-1 text-sm font-semibold text-slate-900">{new Date(selectedProduct.updatedAt).toLocaleString()}</dd>
         </div>
       </dl>
+
+      <form onsubmit={handleUpdateStock} class="mt-8 max-w-md border-t border-indigo-100 pt-6">
+        <h3 class="text-base font-bold text-slate-900">Update stock quantity</h3>
+        <label class="mt-3 block">
+          <span class="mb-1.5 block text-sm font-medium text-slate-700">New stock quantity</span>
+          <input bind:value={stockQuantity} type="number" min="0" step="1" required
+            class="w-full rounded-lg border border-slate-300 bg-white px-3 py-2.5 text-sm outline-none focus:border-indigo-500 focus:ring-2 focus:ring-indigo-100" />
+        </label>
+        <button type="submit" disabled={updatingStock}
+          class="mt-4 rounded-lg bg-indigo-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-indigo-700 disabled:cursor-not-allowed disabled:opacity-60">
+          {updatingStock ? 'Updating…' : 'Update stock'}
+        </button>
+        {#if stockError}
+          <p role="alert" class="mt-3 text-sm text-red-700">{stockError}</p>
+        {/if}
+        {#if stockSuccess}
+          <p role="status" class="mt-3 text-sm text-emerald-700">{stockSuccess}</p>
+        {/if}
+      </form>
     </section>
   {/if}
 </div>
